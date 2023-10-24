@@ -66,7 +66,7 @@ class ActivitySectorImplTest {
 
     @Test
     void deleteActivitySector() {
-        Long idToDelete = 12L;
+        Long idToDelete = 13L;
         ActivitySector activitySector = activitySectorRepository.findById(idToDelete).orElse(null);
         activitySectorService.deleteActivitySector(idToDelete);
         assertThat(activitySector).isNull();
