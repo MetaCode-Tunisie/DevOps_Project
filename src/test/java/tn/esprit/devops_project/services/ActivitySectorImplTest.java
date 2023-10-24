@@ -17,8 +17,10 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -41,10 +43,7 @@ class ActivitySectorImplTest {
 
     @Test
     void addActivitySector() {
-        ActivitySector activitySector = new ActivitySector().builder().codeSecteurActivite("fddxd").libelleSecteurActivite("ffff").build();
-
-
-
+        ActivitySector activitySector = new ActivitySector().builder().codeSecteurActivite("sarra").libelleSecteurActivite("s").build();
         ActivitySector result = activitySectorService.addActivitySector(activitySector);
 
         assertThat(result).isEqualTo(activitySector);
@@ -54,10 +53,10 @@ class ActivitySectorImplTest {
     @Test
     void retrieveActivitySector() {
         ActivitySector activitySector = new ActivitySector();
-        activitySector.setIdSecteurActivite(5L);
+        activitySector.setIdSecteurActivite(1L);
 
 
-        ActivitySector result = activitySectorService.retrieveActivitySector(5L);
+        ActivitySector result = activitySectorService.retrieveActivitySector(1L);
 
 
 
@@ -67,21 +66,23 @@ class ActivitySectorImplTest {
 
     @Test
     void deleteActivitySector() {
-        Long idToDelete = 21L;
+        Long idToDelete = 12L;
         ActivitySector activitySector = activitySectorRepository.findById(idToDelete).orElse(null);
         activitySectorService.deleteActivitySector(idToDelete);
         assertThat(activitySector).isNull();
     }
 
-    @Test
+   @Test
     void updateActivitySector() {
-        ActivitySector activitySector = new ActivitySector();
+        Long existingActivitySectorId = 2L;
+        ActivitySector existingActivitySector = new ActivitySector();
+        existingActivitySector.setIdSecteurActivite(existingActivitySectorId);
+        existingActivitySector.setCodeSecteurActivite("Nouveau code");
 
+        ActivitySector updatedActivitySector = activitySectorService.updateActivitySector(existingActivitySector);
 
-        ActivitySector response = activitySectorService.updateActivitySector(activitySector);
-
-        assertThat(response).isEqualTo(activitySector);
-
-
+        assertThat(updatedActivitySector).isNotNull();
+        assertThat(updatedActivitySector.getIdSecteurActivite()).isEqualTo(existingActivitySectorId);
+        assertThat(updatedActivitySector.getCodeSecteurActivite()).isEqualTo("Nouveau code");
     }
 }
