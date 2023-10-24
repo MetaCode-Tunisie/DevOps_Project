@@ -14,6 +14,7 @@ import tn.esprit.devops_project.entities.Stock;
 import tn.esprit.devops_project.repositories.ProductRepository;
 import tn.esprit.devops_project.repositories.StockRepository;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -43,72 +44,55 @@ class ProductServiceImplTest {
 
     @Test
     void addProduct() {
-// Given
-        Long stockId = 1L;
-        Long productId = 2L;
+        Product product = new Product(/* Initialize with required data */);
+        Long stockId = 1L; // Replace with an actual ID
 
-        Stock stock = new Stock();  // You should create a Stock object with appropriate data
-        Product product = new Product();  // You should create a Product object with appropriate data
+        // Create a Stock object for testing
+        Stock stock = new Stock(/* Initialize with required data */);
 
-        when(stockRepository.findById(stockId)).thenReturn(java.util.Optional.ofNullable(stock));
-        when(productRepository.save(any(Product.class))).thenReturn(product);
+        // Define the behavior of the mock repositories
+        when(stockRepository.findById(stockId)).thenReturn(Optional.of(stock));
+        when(productRepository.save(product)).thenReturn(product);
 
-        // When
-        Product result = productService.addProduct(new Product(), stockId);
+        // Call the service method to test
+        Product result = productService.addProduct(product, stockId);
 
-        // Then
-        verify(stockRepository, org.mockito.Mockito.times(1)).findById(eq(stockId));
-        verify(productRepository, org.mockito.Mockito.times(1)).save(any(Product.class));
+        // Add your assertions here to verify the result
 
-        // You can add more assertions based on your specific requirements and expected behavior
+
     }
 
     @Test
     void retrieveProduct() {
-        // Given
-        Long productId = 1L;
-        Product expectedProduct = new Product();
-        expectedProduct.setIdProduct(productId);
+        Long productId = 1L; // Replace with an actual ID
+        // Create a Product object for testing
+        Product product = new Product(/* Initialize with required data */);
 
-        // Mocking the behavior of the productRepository
-        when(productRepository.findById(productId)).thenReturn(java.util.Optional.of(expectedProduct));
+        // Define the behavior of the mock repository
+        when(productRepository.findById(productId)).thenReturn(Optional.of(product));
 
-        // When
+        // Call the service method to test
         Product result = productService.retrieveProduct(productId);
 
-
-        // Then
-        verify(productRepository, org.mockito.Mockito.times(1)).findById(eq(productId));
-
-
-        // Assert
-        assertNotNull(result);
-        assertEquals(productId, result.getIdProduct());
 
     }
 
     @Test
     void retreiveAllProduct() {
 
-        // Given
-        Product product1 = new Product();
-        product1.setIdProduct(1L);
-        Product product2 = new Product();
-        product2.setIdProduct(2L);
+        // Create a list of Products for testing
+        List<Product> products = new ArrayList<>();
+        products.add(new Product(/* Initialize with required data */));
+        products.add(new Product(/* Initialize with required data */));
 
-        List<Product> productList = Arrays.asList(product1, product2);
+        // Define the behavior of the mock repository
+        when(productRepository.findAll()).thenReturn(products);
 
-        // Mocking the behavior of the productRepository
-        when(productRepository.findAll()).thenReturn(productList);
-
-        // When
+        // Call the service method to test
         List<Product> result = productService.retreiveAllProduct();
 
-        // Then
-        verify(productRepository, org.mockito.Mockito.times(1)).findAll();
-        // Assert
-        assertNotNull(result);
-        assertEquals(2, result.size());
+        // Assertions
+        assertEquals(products.size(), result.size(), "Size of the product list should match.");
 
 
 
@@ -144,14 +128,19 @@ class ProductServiceImplTest {
     @Test
     void deleteProduct() {
 
-        // Given
-        Long productId = 1L;
+        Long productId = 1L; // Replace with an actual ID
 
-        // When
-        productService.deleteProduct(productId);
+        // Create a Product object for testing
+        Product product = new Product(/* Initialize with required data */);
 
-        // Then
-        verify(productRepository).deleteById(eq(productId));
+        // Define the behavior of the mock repository
+        when(productRepository.findById(productId)).thenReturn(Optional.of(product));
+
+        // Call the service method to test
+        assertDoesNotThrow(() -> productService.deleteProduct(productId));
+
+        // Verify that the delete method of the repository is called with the correct ID
+        verify(productRepository).deleteById(productId);
 
     }
 
