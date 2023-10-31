@@ -1,31 +1,29 @@
 pipeline{
     agent any
     stages {
-        stage("Testing Maven"){
+        stage(" Maven Test "){
             steps {
                 sh "mvn -version"
             }
         }
-        stage("Testing JDK"){
+        stage("JDK Test "){
             steps {
                 sh "java -version"
             }
         }
-        stage("Chekout Git"){
+        stage("Getting Projet From Git"){
             steps {
                 echo "Pulling"
             }
         }
-        stage('MVN COMPILE') {
+        stage('Cleaning & Compiling') {
             steps{
-                
-                sh 'mvn compile'
+                sh 'mvn clean compile'
             
         }
 }
-     stage('MVN SONARQUBE') {
-            steps{
-               
+     stage('SonarQube CodeQuality Check') {
+            steps{ 
                 sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar'
             }
         }
