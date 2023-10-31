@@ -1,0 +1,33 @@
+pipeline{
+    agent any
+    stages {
+        stage("Testing Maven"){
+            steps {
+                sh "mvn -version"
+            }
+        }
+        stage("Testing JDK"){
+            steps {
+                sh "java -version"
+            }
+        }
+        stage("Chekout Git"){
+            steps {
+                echo "Pulling"
+            }
+        }
+        stage('MVN COMPILE') {
+            steps{
+                 dir('DevOps_Project') {
+                sh 'mvn compile'
+            }
+        }
+}
+     stage('MVN SONARQUBE') {
+            steps{
+                 dir('DevOps_Project') {
+                sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar'
+            }}
+        }
+    }
+}
