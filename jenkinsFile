@@ -42,6 +42,13 @@ stage('Generate JaCoCo Coverage Report') {
                  
                 sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar'
             }}
+stage('Deploy') {
+            steps {
+         
+                sh 'mvn deploy -DskipTests'
+            
+        }
+        }
         
     }
 post {
