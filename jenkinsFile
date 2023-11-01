@@ -45,7 +45,7 @@ stage('Generate JaCoCo Coverage Report') {
 stage('Deploy') {
             steps {
          
-                sh 'mvn deploy -DskipTests'
+                sh 'mvn deploy -DskipTests -DaltDeploymentRepository=deploymentRepo::default::http://localhost:8081/repository/maven-releases/'
             
         }
         }
