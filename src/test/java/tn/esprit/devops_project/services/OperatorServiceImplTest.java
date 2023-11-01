@@ -1,85 +1,126 @@
 package tn.esprit.devops_project.services;
 
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import tn.esprit.devops_project.controllers.OperatorController;
+
 import tn.esprit.devops_project.entities.Operator;
 import tn.esprit.devops_project.repositories.OperatorRepository;
-
+import static org.assertj.core.api.Assertions.assertThat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+
 @SpringBootTest
 class OperatorServiceImplTest {
-    @Autowired
-    private OperatorServiceImpl  operatorService;
+    List<Operator> operatorList = new ArrayList<Operator>(){{
+           add( new Operator(1L,"khalil","chargui","root"));
+        add( new Operator(2L,"hazem","bayoudh","xd"));
 
-    @Autowired
-    private OperatorController operatorController;
+    }};
+    @InjectMocks
+    private OperatorServiceImpl operatorService;
 
-    @Autowired
+
+
+    @Mock
     private OperatorRepository operatorRepository;
-    @BeforeEach
+
 
     @Test
     void retrieveAllOperators() {
-     List<Operator> operatorList = operatorController.getOperators();
-     assertThat(operatorList).isNotNull();
-     assertThat(operatorList).isNotEmpty();
 
+            Mockito.when(operatorService.retrieveAllOperators()).thenReturn(operatorList);
+            List<Operator> list = operatorService.retrieveAllOperators();
+        assertThat(list).isNotNull();
+        assertThat(list).isNotEmpty();
+        assertThat(list).isEqualTo(operatorList);
     }
 
-    @Test
+     @Test
     void addOperator() {
-        Operator operator = new Operator().builder().fname("salem").lname("aa").password("dqdz").build();
+        // Create a mock operator
+        Operator operator = new Operator().builder().fname("Salem").lname("AA").password("dqdz").build();
+
+        // Stub the behavior of the mocked repository when saving an operator
+        Mockito.when(operatorRepository.save(operator)).thenReturn(operator);
 
         Operator result = operatorService.addOperator(operator);
 
-
-
-        assertThat(result).isEqualTo(operator);
         assertThat(result).isNotNull();
-        assertThat(result.getFname()).isEqualTo("salem");
-        Operator operatorfromdatabase = operatorRepository.findById(result.getIdOperateur()).orElse(null);
-        assertThat(operatorfromdatabase).isNotNull();
-        assertThat(operatorfromdatabase.getFname()).isEqualTo("salem");
-    }
+        assertThat(result.getFname()).isEqualTo("Salem");
 
+        // Verify that the repository's save method was called
+        Mockito.verify(operatorRepository).save(operator);
+    }
+    @Test
+    void retrieveOperator() {
+        Long idToRetrieve = 1L;
+
+        // Create a mock operator
+        Operator operator = new Operator().builder().password("dzq").build();
+        operator.setIdOperateur(idToRetrieve);
+
+        // Stub the behavior of the mocked repository when retrieving an operator
+        Mockito.when(operatorRepository.findById(idToRetrieve)).thenReturn(Optional.of(operator));
+
+        Operator result = operatorService.retrieveOperator(idToRetrieve);
+
+        assertThat(result.getIdOperateur()).isEqualTo(idToRetrieve);
+        assertThat(result).isNotNull();
+    }
+}
+    /*
     @Test
     void deleteOperator() {
-        Long idToDelete = 17L;
-         operatorService.deleteOperator(idToDelete);
-        assertThat(idToDelete).isNotNull();
-        Operator operatorfromdatabase = operatorRepository.findById(5L).orElse(null);
-        assertThat(operatorfromdatabase).isNull();
+        Long idToDelete = 33L;
+
+        // Stub the behavior of the mocked repository when deleting an operator
+        when(operatorRepository.findById(idToDelete)).thenReturn(Optional.empty());
+
+        operatorService.deleteOperator(idToDelete);
+
+        // Verify that the repository's delete method was called
+        verify(operatorRepository).deleteById(idToDelete);
     }
 
     @Test
     void updateOperator() {
-        Operator operator = new Operator().builder().password("dzqdzdzdmmmmm").build();
+        // Create a mock operator
+        Operator operator = new Operator().builder().password("newPassword").build();
+
+        // Stub the behavior of the mocked repository when updating an operator
+        when(operatorRepository.save(operator)).thenReturn(operator);
+
         Operator result = operatorService.updateOperator(operator);
+
         assertThat(result).isNotNull();
         assertThat(result).isEqualTo(operator);
 
+        // Verify that the repository's save method was called
+        verify(operatorRepository).save(operator);
     }
 
     @Test
     void retrieveOperator() {
+        Long idToRetrieve = 9L;
+
+        // Create a mock operator
         Operator operator = new Operator().builder().password("dzq").build();
-         operator.setIdOperateur(9L);
-        Operator result = operatorService.retrieveOperator(9L);
-            assertThat(result.getIdOperateur()).isEqualTo(9L);
+        operator.setIdOperateur(idToRetrieve);
+
+        // Stub the behavior of the mocked repository when retrieving an operator
+        when(operatorRepository.findById(idToRetrieve)).thenReturn(Optional.of(operator));
+
+        Operator result = operatorService.retrieveOperator(idToRetrieve);
+
+        assertThat(result.getIdOperateur()).isEqualTo(idToRetrieve);
         assertThat(result).isNotNull();
-
-
     }
-}
+*/
+

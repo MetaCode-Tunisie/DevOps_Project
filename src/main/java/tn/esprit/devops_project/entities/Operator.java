@@ -33,5 +33,11 @@ public class Operator implements Serializable{
 	@OneToMany
 	@JsonIgnore
 	Set<Invoice> invoices;
-	
+
+	public Operator(Long idOperateur, String fname, String lname, String password) {
+		this.idOperateur = idOperateur;
+		this.fname = fname;
+		this.lname = lname;
+		this.password = password;
+	}
 }
