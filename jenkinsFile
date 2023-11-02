@@ -54,8 +54,8 @@ stage('Deploy') {
 post {
         always {
             script {
-                def scannerHome = tool name: 'sonarQube', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
-                withSonarQubeEnv('sonarQube') {
+                def scannerHome = tool name: 'sonarqube', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+                withSonarQubeEnv('sonarqube') {
                     sh "${scannerHome}/bin/sonar-scanner \
                         -Dsonar.login=admin \
                         -Dsonar.password=sonar \
