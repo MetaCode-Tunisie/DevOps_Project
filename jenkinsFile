@@ -51,8 +51,8 @@ stage('Deploy') {
         }
         
     }
- {
-        {
+post {
+       always {
             script {
                 def scannerHome = tool name: 'sonarqube', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
                 withSonarQubeEnv('sonarqube') {
