@@ -18,15 +18,52 @@ pipeline{
         }
         stage('MVN COMPILE') {
             steps{
-                
+                 
                 sh 'mvn compile'
-            
+           
         }
 }
+stage('Run Tests') {
+    steps {
+        
+            sh 'mvn test' 
+      
+    }
+}
+stage('Generate JaCoCo Coverage Report') {
+        steps {
+             
+                sh 'mvn jacoco:report'
+             
+        }
+    }
      stage('MVN SONARQUBE') {
             steps{
-               
-                sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=root'
+                 
+                sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar'
+            }}
+stage('Deploy') {
+            steps {
+         
+                sh 'mvn deploy -DskipTests -DaltDeploymentRepository=deploymentRepo::default::http://localhost:8081/repository/maven-releases/'
+            
+        }
+        }
+        
+    }
+post {
+        always {
+            script {
+                def scannerHome = tool name: 'sonarqube', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+                withSonarQubeEnv('sonarqube') {
+                    sh "${scannerHome}/bin/sonar-scanner \
+                        -Dsonar.login=admin \
+                        -Dsonar.password=sonar \
+                        -Dsonar.jacoco.reportPaths=DevOps_Project/target/site/jacoco/jacoco.xml \
+                        -D sonar.projectKey=DevOps_Project \
+                        -Dsonar.exclusions=vendor/**,resources/**,**/*.java \
+                        -Dsonar.host.url=http://192.168.33.10:9000/"
+                }
             }
         }
     }

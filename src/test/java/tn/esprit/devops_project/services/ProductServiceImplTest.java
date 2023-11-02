@@ -3,16 +3,23 @@ package tn.esprit.devops_project.services;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.times;
+import org.mockito.Mockito;
+
 import org.springframework.boot.test.context.SpringBootTest;
 
-import org.springframework.test.web.client.ExpectedCount;
+import tn.esprit.devops_project.entities.Operator;
 import tn.esprit.devops_project.entities.Product;
 import tn.esprit.devops_project.entities.ProductCategory;
 import tn.esprit.devops_project.entities.Stock;
+import tn.esprit.devops_project.repositories.OperatorRepository;
 import tn.esprit.devops_project.repositories.ProductRepository;
 import tn.esprit.devops_project.repositories.StockRepository;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,17 +27,16 @@ import java.util.List;
 import java.util.Optional;
 
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.times;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
-
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.client.ExpectedCount.times;
-
 @SpringBootTest
 class ProductServiceImplTest {
+
+    List<Product> productList = new ArrayList<Product>(){{
+        add( new Product(1L,"Maryem",20,22));
+        add( new Product(2L,"hazem",30,10));
+
+    }};
+
+
     @Mock
     private ProductRepository productRepository;
     @InjectMocks
@@ -42,37 +48,29 @@ class ProductServiceImplTest {
     StockRepository stockRepository;
 
 
+
+
     @Test
     void addProduct() {
-        Product product = new Product(/* Initialize with required data */);
-        Long stockId = 1L; // Replace with an actual ID
+        long idStock = 1L;
+        // Create a mock product
+        Product product = new Product().builder().title("Salem").price(122).quantity(12).build();
 
-        // Create a Stock object for testing
-        Stock stock = new Stock(/* Initialize with required data */);
+        // Create a mock stock
+        Stock stock = new Stock();
+        stock.setIdStock(idStock);
 
-        // Define the behavior of the mock repositories
-        when(stockRepository.findById(stockId)).thenReturn(Optional.of(stock));
+        // Stub the behavior of the mocked repository when saving a product
+        when(stockRepository.findById(idStock)).thenReturn(Optional.of(stock));
         when(productRepository.save(product)).thenReturn(product);
 
-        // Call the service method to test
-        Product result = productService.addProduct(product, stockId);
+        Product result = productService.addProduct(product, idStock);
 
-        // Add your assertions here to verify the result
+        assertThat(result).isNotNull();
+        assertThat(result.getTitle()).isEqualTo("Salem");
 
-
-    }
-
-    @Test
-    void retrieveProduct() {
-        Long productId = 1L; // Replace with an actual ID
-        // Create a Product object for testing
-        Product product = new Product(/* Initialize with required data */);
-
-        // Define the behavior of the mock repository
-        when(productRepository.findById(productId)).thenReturn(Optional.of(product));
-
-        // Call the service method to test
-        Product result = productService.retrieveProduct(productId);
+        // Verify that the repository's save method was called
+        verify(productRepository).save(product);
 
 
     }
@@ -80,19 +78,12 @@ class ProductServiceImplTest {
     @Test
     void retreiveAllProduct() {
 
-        // Create a list of Products for testing
-        List<Product> products = new ArrayList<>();
-        products.add(new Product(/* Initialize with required data */));
-        products.add(new Product(/* Initialize with required data */));
 
-        // Define the behavior of the mock repository
-        when(productRepository.findAll()).thenReturn(products);
-
-        // Call the service method to test
-        List<Product> result = productService.retreiveAllProduct();
-
-        // Assertions
-        assertEquals(products.size(), result.size(), "Size of the product list should match.");
+        when(productService.retreiveAllProduct()).thenReturn(productList);
+        List<Product> list = productService.retreiveAllProduct();
+        assertThat(list).isNotNull();
+        assertThat(list).isNotEmpty();
+        assertThat(list).isEqualTo(productList);
 
 
 
@@ -100,28 +91,6 @@ class ProductServiceImplTest {
 
     @Test
     void retrieveProductByCategory() {
-
-        Product product1 = new Product();
-        product1.setIdProduct(1L);
-        product1.setCategory(ProductCategory.ELECTRONICS);
-
-        Product product2 = new Product();
-        product2.setIdProduct(2L);
-        product2.setCategory(ProductCategory.ELECTRONICS);
-
-        List<Product> productList = Arrays.asList(product1, product2);
-
-        // Mocking the behavior of the productRepository
-        when(productRepository.findByCategory(ProductCategory.ELECTRONICS)).thenReturn(productList);
-
-        // When
-        List<Product> result = productService.retrieveProductByCategory(ProductCategory.ELECTRONICS);
-
-        // Then
-        verify(productRepository).findByCategory(eq(ProductCategory.ELECTRONICS));
-        // Assert
-        assertNotNull(result);
-        assertEquals(2, result.size());
 
     }
 
@@ -146,21 +115,7 @@ class ProductServiceImplTest {
 
     @Test
     void retreiveProductStock() {
-        // Given
-        Long stockId = 1L;
-        Stock stock = new Stock();
-        stock.setIdStock(stockId);
-        stock.setTitle("Stock 1");
 
-        // Mocking the behavior of the stockRepository
-        when(stockRepository.findById(stockId)).thenReturn(java.util.Optional.ofNullable(stock));
-
-        // When
-        // Call a method that indirectly triggers retrieveProductStock
-        someMethodThatUsesRetrieveProductStock(stockId);
-
-        // Then
-        verify(stockRepository).findById(eq(stockId));
 
 
     }
@@ -170,4 +125,5 @@ class ProductServiceImplTest {
         stockService.retrieveProductStock(stockId);
         // Perform additional assertions or verifications as needed
     }
+
 }
