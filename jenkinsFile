@@ -52,7 +52,7 @@ stage('Deploy') {
         
     }
 post {
-        
+        always{
             script {
                 def scannerHome = tool name: 'sonarqube', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
                 withSonarQubeEnv('sonarqube') {
@@ -65,6 +65,6 @@ post {
                         -Dsonar.host.url=http://192.168.33.10:9000/"
                 }
             }
-        
+        }
     }
 }
