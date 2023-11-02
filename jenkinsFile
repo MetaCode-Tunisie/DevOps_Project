@@ -58,7 +58,7 @@ post {
                 withSonarQubeEnv('sonarqube') {
                     sh "${scannerHome}/bin/sonar-scanner \
                         -Dsonar.login=admin \
-                        -Dsonar.password=sonar \
+                        -Dsonar.password=root \
                         -Dsonar.jacoco.reportPaths=DevOps_Project/target/site/jacoco/jacoco.xml \
                         -D sonar.projectKey=DevOps_Project \
                         -Dsonar.exclusions=vendor/**,resources/**,**/*.java \
