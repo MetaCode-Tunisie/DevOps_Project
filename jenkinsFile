@@ -48,14 +48,14 @@ stage('Deploy') {
                echo "nexus check"
         }
         }
-        stage('Build Docker Image') {
+          stage('Build Docker Image') {
             steps {
              echo 'Building Docker image for the application...'
              script {
             // Utilisation de la commande docker build pour construire l'image
+           
+                sh 'docker build -t devops_project .'
               
-                sh 'sudo docker build -t devops_project .'
-             
         }
     }
    
