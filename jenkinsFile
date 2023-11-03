@@ -48,16 +48,6 @@ stage('Deploy') {
                echo "nexus check"
         }
         }
-     stage('Build Docker Image') {
-            steps {
-  
-                sh 'docker build -t devops_project .'
-         
-        }
-   
-   }
- 
- 
         
     }
  
