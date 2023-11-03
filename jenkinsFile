@@ -19,11 +19,11 @@ pipeline{
         stage('Cleaning & Compiling') {
             steps{
                 sh 'mvn clean compile'
-            
+
         }
 }
      stage('SonarQube CodeQuality Check') {
-            steps{ 
+            steps{
                 sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar'
             }
         }
