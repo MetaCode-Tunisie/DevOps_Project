@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Optional;
 
 
-@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 class OperatorServiceImplTest {
     List<Operator> operatorList = new ArrayList<Operator>(){{
            add( new Operator(1L,"khalil","chargui","root"));
