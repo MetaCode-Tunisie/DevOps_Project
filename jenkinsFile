@@ -48,14 +48,14 @@ stage('Deploy') {
                echo "nexus check"
         }
         }
-     stage('Build Docker Image') {
-            steps {
-                 sh 'docker build -t devops_project .'
-      
-                }
-   
- 
-                }
+stage('Build Docker Image') {
+    agent {
+        docker { image 'docker:latest' }
+    }
+    steps {
+        sh 'docker build -t devops_project .'
+    }
+}
         
     }
  
