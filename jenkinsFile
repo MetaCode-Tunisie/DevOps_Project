@@ -50,11 +50,12 @@ stage('Deploy') {
         }
      stage('Build Docker Image') {
             steps {
+ script {
                 sh 'docker build -t DevOps_Project .'
              }
         }
    
-   
+   }
  
  
         
