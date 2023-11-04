@@ -43,11 +43,11 @@ pipeline{
 
  stage('Deploy Nexus') {
             steps {
-           // Exécute la commande Maven pour déployer l'artefact sur Nexus
+         
                sh 'mvn deploy -DskipTests=true'
            }
         }
 
 
     }
-}
+
