@@ -26,8 +26,7 @@ public class Operator implements Serializable{
 	String lname;
 	String password;
 	@OneToMany
-	@Transient
 	@JsonIgnore
-	Set<Invoice> invoices;
+	private Set<Invoice> invoices;
 	
 }

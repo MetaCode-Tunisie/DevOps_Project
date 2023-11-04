@@ -7,7 +7,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.context.SpringBootTest;
 import tn.esprit.devops_project.entities.ActivitySector;
 import tn.esprit.devops_project.repositories.ActivitySectorRepository;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -61,7 +60,7 @@ class ActivitySectorImplTest {
 
     @Test
     void retrieveActivitySector() {
-        
+
 
             Long idToRetrieve = 1L;
 

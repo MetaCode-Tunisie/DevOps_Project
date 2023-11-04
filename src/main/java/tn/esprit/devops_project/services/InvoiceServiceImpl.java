@@ -25,19 +25,18 @@ public class InvoiceServiceImpl implements IInvoiceService {
 	final InvoiceDetailRepository invoiceDetailRepository;
 	final SupplierRepository supplierRepository;
 
-	//commentaire
-	//commentaire 2 developper
+
 	@Override
 	public List<Invoice> retrieveAllInvoices() {
 		return invoiceRepository.findAll();
 	}
 	@Override
 	public void cancelInvoice(Long invoiceId) {
-		// method 01
+
 		Invoice invoice = invoiceRepository.findById(invoiceId).orElseThrow(() -> new NullPointerException("Invoice not found"));
 		invoice.setArchived(true);
 		invoiceRepository.save(invoice);
-		//method 02 (Avec JPQL)
+
 		invoiceRepository.updateInvoice(invoiceId);
 	}
 

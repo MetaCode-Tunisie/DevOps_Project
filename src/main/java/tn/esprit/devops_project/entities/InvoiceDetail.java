@@ -28,6 +28,6 @@ public class InvoiceDetail implements Serializable {
 	Product product;
 	@ManyToOne
 	@JsonIgnore
-	Invoice invoice;
+	private Invoice invoice;
 
 }

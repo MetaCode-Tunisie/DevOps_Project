@@ -28,12 +28,12 @@ public class Invoice implements Serializable {
 	@Temporal(TemporalType.DATE)
 	Date dateLastModificationInvoice;
 	Boolean archived;
-	@Transient
+
 	@OneToMany(mappedBy = "invoice")
-	Set<InvoiceDetail> invoiceDetails;
+	private Set<InvoiceDetail> invoiceDetails;
     @ManyToOne
     @JsonIgnore
-    Supplier supplier;
+    private Supplier supplier;
 
 	
 }
