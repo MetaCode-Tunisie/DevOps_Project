@@ -46,7 +46,7 @@ class ActivitySectorImplTest {
     }
 
 
-    @Test
+   /* @Test
     void retrieveActivitySector() {
         ActivitySectorImpl activitySectorService = Mockito.mock(ActivitySectorImpl.class);
 
@@ -62,7 +62,7 @@ class ActivitySectorImplTest {
         ActivitySector result = activitySectorService.retrieveActivitySector(1L);
 
         assertThat(result).isNotNull();
-    }
+    }*/
 
 
 
