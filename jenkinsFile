@@ -1,10 +1,5 @@
 pipeline{
-   agent {
-        docker {
-            image 'khalilimage'
-            args '-u root'  // Utilisez l'utilisateur root dans le conteneur Docker
-        }
-    }
+   agent any
     stages {
         stage("Testing Maven"){
             steps {
