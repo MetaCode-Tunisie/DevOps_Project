@@ -35,6 +35,12 @@ pipeline{
             }
         }
 
+  stage('Artifact Construction') {
+            steps {
+                sh 'mvn package'
+            }
+        }
+
 
         }
 
