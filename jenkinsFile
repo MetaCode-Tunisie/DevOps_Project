@@ -35,7 +35,7 @@ pipeline{
             }
         }
 
-  stage('Build') {
+  stage('Artifact construction') {
                     steps {
                         // Assurez-vous que Maven est installé dans le chemin (PATH)
                         script {
