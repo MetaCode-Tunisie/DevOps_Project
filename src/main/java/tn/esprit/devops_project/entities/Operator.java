@@ -3,11 +3,7 @@ package tn.esprit.devops_project.entities;
 import java.io.Serializable;
 import java.util.Set;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -30,6 +26,7 @@ public class Operator implements Serializable{
 	String lname;
 	String password;
 	@OneToMany
+	@Transient
 	@JsonIgnore
 	Set<Invoice> invoices;
 	
