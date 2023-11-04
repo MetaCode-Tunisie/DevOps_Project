@@ -18,6 +18,5 @@ services:
       - 8082:8082
     depends_on:
       - mysqldb
-
 volumes:
   db:
