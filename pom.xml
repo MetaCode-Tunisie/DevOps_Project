@@ -104,7 +104,7 @@
         </plugins>
     </build>
 
-    
+    <!--Deploy to Nexus-->
     <distributionManagement>
         <repository>
             <id>deploymentRepo</id>
