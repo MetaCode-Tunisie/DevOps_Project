@@ -34,5 +34,20 @@ pipeline{
                 sh 'mvn test'
             }
         }
+
+  stage('Artifact Construction') {
+            steps {
+                sh 'mvn package'
+            }
+        }
+
+ stage('Deploy Nexus') {
+            steps {
+           // Exécute la commande Maven pour déployer l'artefact sur Nexus
+               sh 'mvn deploy -DskipTests=true'
+           }
+        }
+
+
     }
 }
