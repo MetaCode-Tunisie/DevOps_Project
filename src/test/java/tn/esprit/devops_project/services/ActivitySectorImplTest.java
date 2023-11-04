@@ -11,8 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import tn.esprit.devops_project.entities.ActivitySector;
 import tn.esprit.devops_project.repositories.ActivitySectorRepository;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.*;
-import org.junit.jupiter.api.Test;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -20,13 +19,17 @@ import java.util.Optional;
 
 
 
-
-@ExtendWith(MockitoExtension.class)
 @SpringBootTest
+
+
 class ActivitySectorImplTest {
 
 
+    List<ActivitySector> operatorList = new ArrayList<>(){{
+        add( new ActivitySector(1L,"khalil","chargui"));
+        add( new ActivitySector(2L,"hazem","bayoudh"));
 
+    }};
     @Mock
     private ActivitySectorRepository activitySectorRepository;
 
@@ -59,18 +62,20 @@ class ActivitySectorImplTest {
 
     @Test
     void retrieveActivitySector() {
-        ActivitySectorImpl activitySectorService = mock(ActivitySectorImpl.class);
 
-        ActivitySector expectedActivitySector = new ActivitySector();
-        expectedActivitySector.setIdSecteurActivite(1L);
 
-        when(activitySectorService.retrieveActivitySector(1L)).thenReturn(expectedActivitySector);
+            Long idToRetrieve = 1L;
 
-        ActivitySector result = activitySectorService.retrieveActivitySector(1L);
+            ActivitySector activitySector = new ActivitySector().builder().codeSecteurActivite("dzq").build();
+        activitySector.setIdSecteurActivite(idToRetrieve);
 
-        assertThat(result).isNotNull();
+            Mockito.when(activitySectorRepository.findById(idToRetrieve)).thenReturn(Optional.of(activitySector));
 
-        verify(activitySectorService, times(1)).retrieveActivitySector(1L); // Vérifiez que la méthode a été appelée une fois avec l'argument 1L
+            ActivitySector result = activitySectorSercive.retrieveActivitySector(idToRetrieve);
+
+            assertThat(result.getIdSecteurActivite()).isEqualTo(idToRetrieve);
+            assertThat(result).isNotNull();
+
     }
 
 
