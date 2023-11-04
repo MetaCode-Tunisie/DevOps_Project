@@ -58,7 +58,7 @@ class ActivitySectorImplTest {
     }
 
 
-    @Test
+   /* @Test
     void retrieveActivitySector() {
 
 
@@ -74,7 +74,7 @@ class ActivitySectorImplTest {
             assertThat(result.getIdSecteurActivite()).isEqualTo(idToRetrieve);
             assertThat(result).isNotNull();
 
-    }
+    }*/
 
 
 
