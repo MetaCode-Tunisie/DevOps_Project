@@ -56,11 +56,13 @@ stage('Run install') {
     }
 }
           stage('Build Docker Image') {
-                steps {
-        
-                sh 'docker build -t devops_project .'
-                      } 
+            steps {
+                script {
+                    def customImageName = "khalilimage"
+                    sh "docker build -t $customImageName ."
+                }
             }
+        }
   
     }
  
