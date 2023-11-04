@@ -18,7 +18,8 @@ import java.util.Optional;
 
 
 
-@ExtendWith(MockitoExtension.class)
+
+@SpringBootTest
 
 class ActivitySectorImplTest {
 
@@ -58,7 +59,7 @@ class ActivitySectorImplTest {
     }
 
 
-   /* @Test
+    @Test
     void retrieveActivitySector() {
 
 
@@ -74,7 +75,7 @@ class ActivitySectorImplTest {
             assertThat(result.getIdSecteurActivite()).isEqualTo(idToRetrieve);
             assertThat(result).isNotNull();
 
-    }*/
+    }
 
 
 
