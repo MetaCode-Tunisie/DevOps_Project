@@ -63,7 +63,19 @@ stage('Run install') {
                 }
             }
         }
-  
+  stage('Push Docker Image') {
+    steps {
+        script {
+            def dockerUsername = 'charguikhalil'
+            def dockerPassword = 'khalilchargui'
+            sh "docker login -u $dockerUsername -p $dockerPassword"
+            
+                sh 'docker tag khalilimage charguikhalil/khalilimage'
+                sh 'docker push charguikhalil/khalilimage'
+            
+        }
+    }
+}
     }
  
 }
