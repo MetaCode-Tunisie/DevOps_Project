@@ -1,0 +1,23 @@
+version: "2.2"
+services:
+  mysqldb:
+    image: mysql:latest
+    restart: unless-stopped
+    ports:
+      - 3306:3306
+    volumes:
+      - db:/var/lib/mysql
+
+  devops_project:
+    build: ./
+    image: devopsproject
+    restart: on-failure
+    environment:
+      - spring.datasource.url=jdbc:mysql://mysqldb:3306/devops?createDatabaseIfNotExist=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    ports:
+      - 8082:8082
+    depends_on:
+      - mysqldb
+
+volumes:
+  db:
