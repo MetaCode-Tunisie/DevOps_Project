@@ -34,5 +34,21 @@ pipeline{
                 sh 'mvn test'
             }
         }
+
+  stage('Build') {
+                    steps {
+                        // Assurez-vous que Maven est installé dans le chemin (PATH)
+                        script {
+                            def mvnHome = tool name: 'Maven', type: 'Tool'
+                            if (isUnix()) {
+                                sh "${mvnHome}/bin/mvn package"
+                            } else {
+                                bat "${mvnHome}\\bin\\mvn package"
+                                   }
+          }
+         }
+ }
+        }
+
     }
 }
