@@ -2,13 +2,18 @@ package tn.esprit.devops_project.services;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.boot.test.context.SpringBootTest;
 import tn.esprit.devops_project.entities.ActivitySector;
 import tn.esprit.devops_project.repositories.ActivitySectorRepository;
 import static org.assertj.core.api.Assertions.assertThat;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -19,8 +24,16 @@ import java.util.Optional;
 class ActivitySectorImplTest {
 
 
+    List<ActivitySector> operatorList = new ArrayList<>(){{
+        add( new ActivitySector(1L,"khalil","chargui"));
+        add( new ActivitySector(2L,"hazem","bayoudh"));
+
+    }};
     @Mock
     private ActivitySectorRepository activitySectorRepository;
+
+    @InjectMocks
+    private ActivitySectorImpl activitySectorSercive;
 
     @BeforeEach
     void setUp() {
@@ -46,27 +59,30 @@ class ActivitySectorImplTest {
     }
 
 
-   /* @Test
+    @Test
     void retrieveActivitySector() {
-        ActivitySectorImpl activitySectorService = Mockito.mock(ActivitySectorImpl.class);
+        
 
-        ActivitySectorRepository activitySectorRepository = Mockito.mock(ActivitySectorRepository.class);
+            Long idToRetrieve = 1L;
 
-        ActivitySector activitySector = new ActivitySector();
-        activitySector.setIdSecteurActivite(1L);
+            ActivitySector activitySector = new ActivitySector().builder().codeSecteurActivite("dzq").build();
+        activitySector.setIdSecteurActivite(idToRetrieve);
 
-        Mockito.when(activitySectorRepository.findById(1L)).thenReturn(Optional.of(activitySector));
+            Mockito.when(activitySectorRepository.findById(idToRetrieve)).thenReturn(Optional.of(activitySector));
 
-        Mockito.when(activitySectorService.retrieveActivitySector(1L)).thenReturn(activitySector);
+            ActivitySector result = activitySectorSercive.retrieveActivitySector(idToRetrieve);
 
-        ActivitySector result = activitySectorService.retrieveActivitySector(1L);
+            assertThat(result.getIdSecteurActivite()).isEqualTo(idToRetrieve);
+            assertThat(result).isNotNull();
 
-        assertThat(result).isNotNull();
-    }*/
+    }
 
 
 
-   @Test
+
+
+
+    @Test
    void updateActivitySector() {
        ActivitySectorImpl activitySectorService = Mockito.mock(ActivitySectorImpl.class);
 
