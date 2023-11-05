@@ -22,11 +22,20 @@ pipeline{
 
 
 
-       stage('SonarQube CodeQuality Check') {
-            steps{
-                sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar'
+              stage('SonarQube CodeQuality Check') {
+            steps {
+                script {
+                    // Use a cache for the SonarQube scanner to speed up future runs
+                    def sonarCacheDir = "${tool name: 'SonarQube Scanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'}/.sonar/cache"
+                    if (!fileExists(sonarCacheDir)) {
+                        sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar'
+                    } else {
+                        echo "Using cached SonarQube scanner"
+                    }
+                }
             }
         }
+
 
        stage('Unit Test') {
             steps {
