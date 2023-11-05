@@ -16,32 +16,32 @@ pipeline{
                 echo "Pulling"
             }
         }
-        stage('Compiling') {
-            steps{
-                sh 'mvn compile'
 
-        }
-}
-     stage('SonarQube CodeQuality Check') {
+
+
+
+
+
+       stage('SonarQube CodeQuality Check') {
             steps{
                 sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar'
             }
         }
 
-  stage('Unit Test') {
+       stage('Unit Test') {
             steps {
                 // Use Maven to run your JUnit tests
                 sh 'mvn test'
             }
         }
 
-  stage('Artifact Construction') {
+       stage('Artifact Construction') {
             steps {
                 sh 'mvn package'
             }
         }
 
- stage('Deploy Nexus') {
+       stage('Deploy Nexus') {
             steps {
            // Exécute la commande Maven pour déployer l'artefact sur Nexus
                sh 'mvn deploy -DskipTests=true'
