@@ -1,61 +1,33 @@
-pipeline{
-   agent any
+pipeline {
+
+    agent any
+     
+
     stages {
-        stage("Testing Maven"){
-            steps {
-                sh "mvn -version"
-            }
-        }
-        stage("Testing JDK"){
-            steps {
-                sh "java -version"
-            }
-        }
-        stage("Chekout Git"){
+    stage("Chekout Git"){
             steps {
                 echo "Pulling"
             }
         }
-        stage('MVN COMPILE') {
-            steps{
-                 
-                sh 'mvn compile'
-           
+    stage("Build") {
+             steps {
+                sh "mvn clean package -DskipTests"
+            }
         }
-}
-stage('Run Tests') {
-    steps {
+        /*stage('Publish to Nexus') {
+             steps {
+                sh "mvn deploy -DskipTests"
         
-            sh 'mvn test' 
-      
-    }
-}
-stage('Generate JaCoCo Coverage Report') {
-        steps {
-             
-               echo "jacoco check"
-             
-        }
-    }
-     stage('MVN SONARQUBE') {
-            steps{
-                 
-                echo "snorqube check"
-            }}
-stage('Deploy') {
+                }
+            }
+          stage('MVN SONARQUBE') {
             steps {
-         
-               echo "nexus check"
-        }
-        }
-stage('Run install') {
-    steps {
+                sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar -Dmaven.test.skip=true';
+
+            }
+        }*/
         
-            sh 'mvn install' 
-      
-    }
-}
-          stage('Build Docker Image') {
+        stage('Build Docker Image') {
             steps {
                 script {
                     def customImageName = "khalilimage"
@@ -63,7 +35,7 @@ stage('Run install') {
                 }
             }
         }
-  stage('Push Docker Image') {
+       stage('Push Docker Image') {
     steps {
         script {
             def dockerUsername = 'charguikhalil'
@@ -76,22 +48,32 @@ stage('Run install') {
         }
     }
 }
-stage('Docker Compose') {
+       stage('Verify Docker Compose Installation') {
             steps {
-                 
-                sh 'docker compose down'
-                sh'docker compose build'
-                sh 'docker compose up -d'
-                  
-            }
-        }
-stage('Check Docker Compose Status') {
-    steps {
-        
-        sh 'docker compose ps'
-      
-    }
+                sh 'docker compose version'
+                    }
 }
-    }
- 
+
+        stage('Start Docker Compose') {
+            steps {
+                script {
+                    sh 'docker compose up -d'
+                    }
+                }
+            }
+        stage('check Docker Compose') {
+            steps {
+                script {
+                        sh 'docker compose ps'
+                    }
+                }
+            }
+        /*stage('Tests') {
+                steps {
+                    sh 'mvn test'
+                	}
+                }*/
+
+        
+}
 }
