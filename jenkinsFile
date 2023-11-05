@@ -53,14 +53,15 @@ pipeline {
                 sh 'docker compose version'
                     }
 }
-
-        stage('Start Docker Compose') {
+stage('Docker Compose') {
             steps {
-                script {
-                    sh 'docker compose up -d'
-                    }
-                }
+                 
+                sh 'docker compose down'
+                sh'docker compose build'
+                sh 'docker compose up -d'
+                  
             }
+        }
         stage('check Docker Compose') {
             steps {
                 script {
