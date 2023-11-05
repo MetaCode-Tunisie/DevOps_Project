@@ -1,22 +1,31 @@
-version: "2.2"
+version: "3"
 services:
-  mysqldb:
-    image: mysql:latest
-    restart: unless-stopped
-    ports:
-      - 3306:3306
-    volumes:
-      - db:/var/lib/mysql
-
   DevOps_Project:
-    build: ./
-    image: khalilimage
+    container_name: DevOps_Project
+    image: charguikhalil/khalilimage
     restart: on-failure
     environment:
-      - spring.datasource.url=jdbc:mysql://mysqldb:3306/devops?createDatabaseIfNotExist=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+      SPRING_APPLICATION_JSON: '{
+      "spring.datasource.url" : "jdbc:mysql://mysqldb:3306/devops?createDatabaseIfNotExist=true",
+      "spring.datasource.username" : "root"
+      }'
     ports:
       - 8082:8082
     depends_on:
       - mysqldb
+    volumes:
+      - app_data:/app/data
+
+  mysqldb:
+    container_name: mysqldb
+    image: mysql:5.7
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: yes
+      MYSQL_DATABASE: devops
+    ports:
+      - 3306:3306
+    volumes:
+      - db:/var/lib/mysql
 volumes:
+  app_data:
   db:
