@@ -18,17 +18,9 @@ pipeline {
             }
         }
 
-        stage("SonarQube CodeQuality Check") {
-            steps {
-                script {
-                    // Utilisez un cache pour le scanner SonarQube afin d'accélérer les exécutions futures
-                    def sonarCacheDir = "${tool name: 'SonarQube Scanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'}/.sonar/cache"
-                    if (!fileExists(sonarCacheDir)) {
-                        sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar'
-                    } else {
-                        echo "Utilisation du scanner SonarQube en cache"
-                    }
-                }
+        stage('SonarQube CodeQuality Check') {
+            steps{
+                sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar'
             }
         }
 
