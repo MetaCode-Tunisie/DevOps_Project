@@ -85,6 +85,13 @@ stage('Docker Compose') {
                   
             }
         }
+stage('Check Docker Compose Status') {
+    steps {
+        
+        sh 'docker compose ps'
+      
+    }
+}
     }
  
 }
