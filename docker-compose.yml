@@ -2,7 +2,7 @@ version: "3"
 services:
   DevOps_Project:
     container_name: DevOps_Project
-    image: charguikhalil/khalilimage
+    image: charguikhalil/khalilimage:latest
     restart: on-failure
     environment:
       SPRING_APPLICATION_JSON: '{
