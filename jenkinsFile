@@ -1,59 +1,54 @@
-pipeline{
+pipeline {
     agent any
     stages {
-        stage(" Maven Test "){
+        stage("Maven Test") {
             steps {
                 sh "mvn -version"
             }
         }
-        stage("JDK Test "){
+        stage("JDK Test") {
             steps {
                 sh "java -version"
             }
         }
-        stage("Getting Projet From Git"){
+        stage("Getting Project From Git") {
             steps {
                 echo "Pulling"
+                // Ajoutez ici l'étape de récupération du projet Git
             }
         }
-
 
         stage("SonarQube CodeQuality Check") {
             steps {
                 script {
-                    // Use a cache for the SonarQube scanner to speed up future runs
+                    // Utilisez un cache pour le scanner SonarQube afin d'accélérer les exécutions futures
                     def sonarCacheDir = "${tool name: 'SonarQube Scanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'}/.sonar/cache"
                     if (!fileExists(sonarCacheDir)) {
                         sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar'
                     } else {
-                        echo "Using cached SonarQube scanner"
+                        echo "Utilisation du scanner SonarQube en cache"
                     }
                 }
             }
         }
 
-
-       stage('Unit Test') {
+        stage('Unit Test') {
             steps {
-                // Use Maven to run your JUnit tests
+                // Utilisez Maven pour exécuter vos tests JUnit
                 sh 'mvn test'
             }
         }
 
-       stage('Artifact Construction') {
+        stage('Artifact Construction') {
             steps {
                 sh 'mvn package'
             }
         }
 
-        stage('Deploy to Nexus') {
-             steps {
-
-              sh 'mvn deploy -DaltDeploymentRepository=deploymentRepo::default::http://localhost:8081/repository/maven-releases/ -Dnexus.user=admin -Dnexus.password=nexus'
-
-                                }
-                       }
-
-
+        stage('Deploy Nexus') {
+            steps {
+                sh 'mvn deploy -DaltDeploymentRepository=deploymentRepo::default::http://localhost:8081/repository/maven-releases/ -Dnexus.user=admin -Dnexus.password=nexus'
+            }
+        }
     }
 }
