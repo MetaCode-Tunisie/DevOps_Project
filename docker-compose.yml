@@ -18,8 +18,8 @@ services:
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
       - DOCKER_USERNAME=nasreddine007
       - DOCKER_PASSWORD=dckr_pat_y-bDuwILc-796Xs4Pe_CzP87zTM
-      - management.endpoints.web.exposure.include=*
-      - management.endpoint.prometheus.enabled=true
+      - MANAGEMENT.ENDPOINTS.WEB.EXPOSURE.INCLUDE=*
+      - MANAGEMENT.ENDPOINT.PROMETHEUS.ENABLED=true
     depends_on:
       - prod-db
   prod-db:
