@@ -1,5 +1,11 @@
 pipeline {
     agent any
+
+ environment {
+        DOCKER_HUB_USERNAME = 'ayou1234'
+        DOCKER_HUB_PASSWORD = 'AyouDocker1'
+        DOCKER_IMAGE_NAME = 'my-java-app'
+    }
     stages {
         stage("Maven Test") {
             steps {
@@ -56,11 +62,7 @@ stage('Build Docker Image') {
 }
 
 
- environment {
-        DOCKER_HUB_USERNAME = 'ayou1234'
-        DOCKER_HUB_PASSWORD = 'AyouDocker1'
-        DOCKER_IMAGE_NAME = 'my-java-app'
-    }
+
 
    
         stage('Login to Docker Hub') {
