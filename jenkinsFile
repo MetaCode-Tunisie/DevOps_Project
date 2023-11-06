@@ -49,6 +49,51 @@ stage('Deploy') {
             
         }
         }
+stage('Build Docker Image') {
+            steps {
+                script {
+                    def customImageName = "maryemimage"
+                    sh "docker build -t $customImageName ."
+                }
+            }
+        }
+       stage('Push Docker Image') {
+    steps {
+        script {
+            def dockerUsername = 'maryem200'
+            def dockerPassword = '191JFT3819'
+            sh "docker login -u $dockerUsername -p $dockerPassword"
+            
+                sh 'docker tag maryemimage maryem200/maryemimage'
+                sh 'docker push maryem200/maryemimage'
+            
+        }
+    }
+}
+       stage('Verify Docker Compose Installation') {
+            steps {
+                sh 'docker compose version'
+                    }
+}
+stage('Docker Compose') {
+            steps {
+                 
+               
+                sh 'docker compose up -d'
+                  sh 'docker compose down'
+                  sh 'docker compose up -d'
+                  
+            }
+        }
+
+
+        stage('check Docker Compose') {
+            steps {
+                script {
+                        sh 'docker compose ps'
+                    }
+                }
+            }
         
     }
 
