@@ -62,7 +62,7 @@ stage('Build Docker Image') {
         DOCKER_IMAGE_NAME = 'my-java-app'
     }
 
-    stages {
+   
         stage('Login to Docker Hub') {
             steps {
                 script {
@@ -93,4 +93,4 @@ stage('Build Docker Image') {
 
 
     }
-}
+} 
