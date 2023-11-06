@@ -12,7 +12,6 @@ import lombok.experimental.FieldDefaults;
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Builder
 public class Supplier implements Serializable {
@@ -31,7 +30,16 @@ public class Supplier implements Serializable {
 	Set<Invoice> invoices;
 	@ManyToMany
 	private Set<ActivitySector> activitySectors;
-    
 
-	
+
+	public Supplier(){
+
+	}
+	public Supplier(long idSupplier, String code, String label, SupplierCategory supplierCategory) {
+		this.idSupplier=idSupplier;
+		this.code=code;
+		this.label=label;
+		this.supplierCategory=supplierCategory;
+
+	}
 }

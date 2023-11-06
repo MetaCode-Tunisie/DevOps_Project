@@ -59,7 +59,11 @@
             <artifactId>junit</artifactId>
             <version>4.13.2</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+            <version>1.6.11</version>
+        </dependency>
 
     </dependencies>
 
@@ -68,7 +72,7 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.7</version> <!-- Assurez-vous d'utiliser la dernière version disponible -->
+                <version>0.8.7</version>
                 <executions>
                     <execution>
                         <goals>
@@ -97,7 +101,6 @@
                 </configuration>
             </plugin>
         </plugins>
-        <finalName>devops-integration</finalName>
     </build>
     <distributionManagement>
         <repository>
