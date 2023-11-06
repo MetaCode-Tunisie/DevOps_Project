@@ -1,9 +1,10 @@
 pipeline {
     agent any
 
- environment {
-        DOCKER_HUB_USERNAME = 'ayou1234'
-        DOCKER_HUB_PASSWORD = 'AyouDocker1'
+
+environment {
+        DOCKER_HUB_USERNAME = credentials('docker-hub-credentials').ayou1234
+        DOCKER_HUB_PASSWORD = credentials('docker-hub-credentials').AyouDocker1
         DOCKER_IMAGE_NAME = 'my-java-app'
     }
     stages {
