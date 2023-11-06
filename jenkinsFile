@@ -18,6 +18,24 @@ pipeline {
             }
         }
 
+  stage('SonarQube CodeQuality Check') {
+            steps{
+                sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar'
+            }
+        }
+
+    stage('Unit Test') {
+            steps {
+                // Use Maven to run your JUnit tests
+                sh 'mvn test'
+            }
+        }
+
+  stage('Artifact Construction') {
+            steps {
+                sh 'mvn package'
+            }
+        }
 
 
         stage('Deploy Nexus') {
