@@ -3,10 +3,9 @@ pipeline {
 
 
 environment {
-        DOCKER_HUB_USERNAME = credentials('docker-hub-credentials').ayou1234
-        DOCKER_HUB_PASSWORD = credentials('docker-hub-credentials').AyouDocker1
-        DOCKER_IMAGE_NAME = 'my-java-app'
-    }
+    DOCKER_HUB_CREDENTIALS = credentials('docker-hub-credentials')
+    DOCKER_IMAGE_NAME = 'my-java-app'
+}
     stages {
         stage("Maven Test") {
             steps {
@@ -66,23 +65,24 @@ stage('Build Docker Image') {
 
 
    
-        stage('Login to Docker Hub') {
-            steps {
-                script {
-                    withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_HUB_USERNAME', passwordVariable: 'DOCKER_HUB_PASSWORD')]) {
-                        sh "docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD"
-                    }
+      
+    stage('Login to Docker Hub') {
+        steps {
+            script {
+                withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_HUB_USERNAME', passwordVariable: 'DOCKER_HUB_PASSWORD']]) {
+                    sh "docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD"
                 }
             }
         }
+    }
 
-        stage('Push Docker Image') {
-            steps {
-                script {
-                    sh "docker push $DOCKER_IMAGE_NAME:latest"
-                }
+    stage('Push Docker Image') {
+        steps {
+            script {
+                sh "docker push $DOCKER_IMAGE_NAME:latest"
             }
         }
+    }
 
 
 
