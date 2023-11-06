@@ -57,7 +57,7 @@ stage('Build Docker Image') {
 
 stage('Run Docker Container') {
     steps {
-        sh 'docker run -p 8080:80 my-java-app:latest'
+        sh 'docker run -p 8084:80 my-java-app:latest'
     }
 }
 
