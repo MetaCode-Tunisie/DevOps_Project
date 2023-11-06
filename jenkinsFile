@@ -55,7 +55,35 @@ stage('Build Docker Image') {
     }
 }
 
-stage('Run Docker Container') {
+
+ environment {
+        DOCKER_HUB_USERNAME = 'ayou1234'
+        DOCKER_HUB_PASSWORD = 'AyouDocker1'
+        DOCKER_IMAGE_NAME = 'my-java-app'
+    }
+
+    stages {
+        stage('Login to Docker Hub') {
+            steps {
+                script {
+                    withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_HUB_USERNAME', passwordVariable: 'DOCKER_HUB_PASSWORD')]) {
+                        sh "docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD"
+                    }
+                }
+            }
+        }
+
+        stage('Push Docker Image') {
+            steps {
+                script {
+                    sh "docker push $DOCKER_IMAGE_NAME:latest"
+                }
+            }
+        }
+
+
+
+   stage('Run Docker Container') {
     steps {
         sh 'docker run -p 8084:80 my-java-app:latest'
     }
