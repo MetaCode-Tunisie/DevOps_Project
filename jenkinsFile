@@ -63,6 +63,17 @@ stage('Docker Compose') {
                   
             }
         }
+stage('Docker debug') {
+            steps {
+                 
+               
+                sh 'docker stop mysqldb'
+                  sh 'docker volume rm db'
+                  sh 'docker-compose up -d mysqldb'
+                  
+            }
+        }
+
         stage('check Docker Compose') {
             steps {
                 script {
