@@ -79,7 +79,11 @@ stage('Push Docker Image') {
 
 
    
-
+stage('Verify Docker Compose Installation') {
+            steps {
+                sh 'docker compose version'
+                    }
+}
 stage('Docker Compose') {
             steps {
                  
