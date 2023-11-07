@@ -80,12 +80,25 @@ stage('Push Docker Image') {
 
    
 
+stage('Docker Compose') {
+            steps {
+                 
+               
+                sh 'docker compose up -d'
+                  sh 'docker compose down'
+                  sh 'docker compose up -d'
+                  
+            }
+        }
 
-   stage('Run Docker Container') {
-    steps {
-        sh 'docker run -p 8082:8082 my-java-app:latest'
-    }
-}
+
+        stage('check Docker Compose') {
+            steps {
+                script {
+                        sh 'docker compose ps'
+                    }
+                }
+            }
 
 
 
