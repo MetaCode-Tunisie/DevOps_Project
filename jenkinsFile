@@ -13,14 +13,14 @@ pipeline {
              steps {
                 sh "mvn clean package -DskipTests"
             }
-        }/*
+        }
         stage('Publish to Nexus') {
              steps {
                 sh "mvn deploy -DskipTests"
         
                 }
             }
-
+/*
           stage('MVN SONARQUBE') {
             steps {
                 sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar -Dmaven.test.skip=true';
