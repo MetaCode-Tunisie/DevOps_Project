@@ -27,7 +27,7 @@ services:
     ports:
       - "3306:3306"  # Map MySQL's port to the host
 
-    volumes:
+    # volumes:
       # - db:/var/lib/mysql
 
 volumes:
