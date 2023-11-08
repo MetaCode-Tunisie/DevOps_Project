@@ -26,7 +26,7 @@ pipeline{
                     echo "test ay9ouna"
             }
         }
-/* stage('Generate JaCoCo Coverage Report') {
+       stage('Generate JaCoCo Coverage Report') {
         steps {
 
                 sh 'mvn jacoco:report'
@@ -44,7 +44,7 @@ stage('Deploy') {
                 sh 'mvn deploy -DskipTests -DaltDeploymentRepository=deploymentRepo::default::http://localhost:8081/repository/maven-releases/'
 
         }
-        }*/
+        }
         stage('Build Docker Image') {
             steps {
                 script {

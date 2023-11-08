@@ -60,7 +60,11 @@
             <artifactId>springdoc-openapi-ui</artifactId>
             <version>1.6.9</version>
         </dependency>
-
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-registry-prometheus</artifactId>
+            <version>1.11.5</version>
+        </dependency>
 
     </dependencies>
 
