@@ -11,44 +11,40 @@ pipeline{
                 sh "java -version"
             }
         }
-        stage("Chekout Git"){
+        stage("Checkout Git"){
             steps {
                 echo "Pulling"
             }
         }
         stage('MVN COMPILE') {
             steps{
-                 
                 sh 'mvn compile'
-           
+            }
         }
-}
-stage('Run Tests') {
-    steps {
-        
-            echo "test ay9ouna" 
-      
-    }
-}
+        stage('Run Tests') {
+            steps {
+                    echo "test ay9ouna"
+            }
+        }
 /* stage('Generate JaCoCo Coverage Report') {
         steps {
-             
+
                 sh 'mvn jacoco:report'
-             
+
         }
     }
      stage('MVN SONARQUBE') {
             steps{
-                 
+
                 sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar'
             }}
 stage('Deploy') {
             steps {
-         
+
                 sh 'mvn deploy -DskipTests -DaltDeploymentRepository=deploymentRepo::default::http://localhost:8081/repository/maven-releases/'
-            
+
         }
-        }
+        }*/
 stage('Build Docker Image') {
             steps {
                 script {
@@ -57,30 +53,30 @@ stage('Build Docker Image') {
                 }
             }
         }
-       stage('Push Docker Image') {
-    steps {
-        script {
-            def dockerUsername = 'maryem200'
-            def dockerPassword = '191JFT3819'
-            sh "docker login -u $dockerUsername -p $dockerPassword"
-            
-                sh 'docker tag maryemimage maryem200/maryemimage'
-                sh 'docker push maryem200/maryemimage'
-            
-        }
-    }
-}
+        /* stage('Push Docker Image') {
+            steps {
+                script {
+                    def dockerUsername = 'maryem200'
+                    def dockerPassword = '191JFT3819'
+                    sh "docker login -u $dockerUsername -p $dockerPassword"
+
+                        sh 'docker tag maryemimage maryem200/maryemimage'
+                        sh 'docker push maryem200/maryemimage'
+
+                }
+            }
+        }*/
        stage('Verify Docker Compose Installation') {
             steps {
                 sh 'docker compose version'
                     }
 }
-*/
-stage('Docker Compose') {
+
+        stage('Docker Compose') {
             steps {
-                  sh 'docker compose down'
-                  sh 'docker compose up -d --build'
-                  
+
+                    sh 'docker compose down'
+                    sh 'docker compose up -d'
             }
         }
 
@@ -89,10 +85,8 @@ stage('Docker Compose') {
             steps {
                 script {
                         sh 'docker compose ps'
-                    }
                 }
             }
-        
+        }
     }
-
 }
