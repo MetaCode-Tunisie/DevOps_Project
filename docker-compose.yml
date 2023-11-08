@@ -18,7 +18,8 @@ services:
       - mysqldb  # Ensure the MySQL service is started before the application
     volumes:
       - app_data:/app/data
-
+    networks:
+      - my-network
   mysqldb:
     container_name: mysqldb
     image: mysql:latest  # You can use a different version if needed
@@ -29,7 +30,12 @@ services:
       - "3306:3306"  # Map MySQL's port to the host
     volumes:
       - db:/var/lib/mysql
-
+    networks:
+      - my-network
 volumes:
   app_data:  # Define the app_data volume
   db:
+
+networks:
+  my-network:
+    driver: bridge

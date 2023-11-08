@@ -53,7 +53,7 @@ stage('Build Docker Image') {
                 }
             }
         }
-        /* stage('Push Docker Image') {
+        stage('Push Docker Image') {
             steps {
                 script {
                     def dockerUsername = 'maryem200'
@@ -65,7 +65,7 @@ stage('Build Docker Image') {
 
                 }
             }
-        }*/
+        }
        stage('Verify Docker Compose Installation') {
             steps {
                 sh 'docker compose version'
