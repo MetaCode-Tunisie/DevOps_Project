@@ -2,6 +2,9 @@ version: "3"
 services:
   app:
     container_name: DevOps_Project
+    build:
+      context: .
+      dockerfile: Dockerfile
     # image: maryem200/maryemimage  # Replace with the actual image and tag
     restart: on-failure
     # environment:
