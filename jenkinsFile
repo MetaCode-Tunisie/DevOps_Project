@@ -45,7 +45,7 @@ stage('Deploy') {
 
         }
         }*/
-stage('Build Docker Image') {
+        stage('Build Docker Image') {
             steps {
                 script {
                     def customImageName = "maryemimage"

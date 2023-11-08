@@ -2,7 +2,7 @@ version: "3"
 services:
   app:
     container_name: DevOps_Project
-    image: maryem200/maryemimage  # Replace with the actual image and tag
+    # image: maryem200/maryemimage  # Replace with the actual image and tag
     restart: on-failure
     # environment:
       # SPRING_APPLICATION_JSON: '{
@@ -22,7 +22,7 @@ services:
       - my-network
   mysqldb:
     container_name: mysqldb
-    image: mysql:latest  # You can use a different version if needed
+    image: mysql:8.0.27  # You can use a different version if needed
     environment:
       MYSQL_DATABASE: devops
       MYSQL_ROOT_PASSWORD: root
