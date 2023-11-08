@@ -81,4 +81,20 @@ stage('Docker Compose') {
 
         
 }
+post {
+        success {
+            emailext (
+                subject: "Build Successful: ${currentBuild.fullDisplayName}",
+                body: "The build ${currentBuild.fullDisplayName} has completed successfully.",
+                to: 'khalil.chargui@esprit.tn' // Replace with the recipient's email address
+            )
+        }
+        failure {
+            emailext (
+                subject: "Build Failed: ${currentBuild.fullDisplayName}",
+                body: "The build ${currentBuild.fullDisplayName} has failed.",
+                to: 'khalil.chargui@esprit.tn' // Replace with the recipient's email address
+            )
+        }
+    }
 }
