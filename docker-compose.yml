@@ -17,7 +17,7 @@ services:
     depends_on:
       - mysqldb  # Ensure the MySQL service is started before the application
     networks:
-      - springapimysql-net
+        - my-network
     volumes:
       - app_data:/app/data
 
@@ -30,7 +30,7 @@ services:
     ports:
       - "3306:3306"  # Map MySQL's port to the host
     networks:
-      - springapimysql-net
+      - my-network
 
     # volumes:
       # - db:/var/lib/mysql
@@ -40,5 +40,5 @@ volumes:
   # db:
 
 networks:
-  springapimysql-net:
+  my-network:
     driver: bridge
