@@ -1,7 +1,8 @@
 FROM openjdk:11
 EXPOSE 8082
-ADD target/DevOps_Project-2.1.jar DevOps_Project-2.1.jar
-ENTRYPOINT ["java" , "-jar" ,"DevOps_Project-2.1.jar"]
-
+ENV NEXUS_URL="http://192.168.33.10:8081"
+ENV JAR_FILE_PATH="/repository/maven-releases/tn/esprit/DevOps_Project/2.1/DevOps_Project-2.1.jar"
+RUN curl -o DevOps_Project-2.1.jar "${NEXUS_URL}${JAR_FILE_PATH}"
+ENTRYPOINT ["java", "-jar", "DevOps_Project-2.1.jar"]
 
 

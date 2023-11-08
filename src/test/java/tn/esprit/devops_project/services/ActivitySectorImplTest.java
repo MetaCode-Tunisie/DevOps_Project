@@ -26,8 +26,8 @@ class ActivitySectorImplTest {
 
 
     List<ActivitySector> operatorList = new ArrayList<>(){{
-        add( new ActivitySector(1L,"khalil","chargui"));
-        add( new ActivitySector(2L,"hazem","bayoudh"));
+        add( new ActivitySector(1L,"sarra","elkamel"));
+        add( new ActivitySector(2L,"rania","ala"));
 
     }};
     @Mock
