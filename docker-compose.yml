@@ -23,7 +23,7 @@ services:
 
   mysqldb:
     container_name: mysqldb
-    image: mysql:latest  # You can use a different version if needed
+    image: mysql:8  # You can use a different version if needed
     environment:
       - MYSQL_DATABASE=devops
       - MYSQL_ROOT_PASSWORD=root
