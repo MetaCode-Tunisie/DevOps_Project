@@ -28,8 +28,8 @@ services:
       - "3306:3306"  # Map MySQL's port to the host
 
     volumes:
-      - db:/var/lib/mysql
+      # - db:/var/lib/mysql
 
 volumes:
   app_data:  # Define the app_data volume
-  db:
+  # db:
