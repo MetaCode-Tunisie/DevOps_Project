@@ -16,17 +16,17 @@ pipeline {
         }
         stage('Publish to Nexus') {
              steps {
-                sh "mvn deploy -DskipTests"
+                  echo "nexus"
         
                 }
             }
-/*
+
           stage('MVN SONARQUBE') {
             steps {
-                sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar -Dmaven.test.skip=true';
+                 echo "sonar"
 
             }
-        }*/
+        }
         
         stage('Build Docker Image') {
             steps {
