@@ -23,8 +23,8 @@ services:
     container_name: mysqldb
     image: mysql:latest  # You can use a different version if needed
     environment:
-      - MYSQL_DATABASE=devops
-      - MYSQL_ROOT_PASSWORD=root
+      MYSQL_DATABASE: devops
+      MYSQL_ROOT_PASSWORD: root
     ports:
       - "3306:3306"  # Map MySQL's port to the host
     volumes:
