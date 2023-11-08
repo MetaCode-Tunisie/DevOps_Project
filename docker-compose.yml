@@ -20,6 +20,8 @@ services:
       - DOCKER_PASSWORD=dckr_pat_y-bDuwILc-796Xs4Pe_CzP87zTM
       - MANAGEMENT.ENDPOINTS.WEB.EXPOSURE.INCLUDE=*
       - MANAGEMENT.ENDPOINT.PROMETHEUS.ENABLED=true
+      - MANAGEMENT.ENDPOINT.METRICS.ENABLED=true
+      - management.endpoint.health.show-details=always
     depends_on:
       - prod-db
   prod-db:
