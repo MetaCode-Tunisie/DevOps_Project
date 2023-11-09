@@ -73,11 +73,11 @@ stage('Docker Compose') {
                     }
                 }
             }
-        /*stage('Tests') {
+        stage('Tests') {
                 steps {
                     sh 'mvn test'
                 	}
-                }*/
+                }
 
         
 }
