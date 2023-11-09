@@ -86,7 +86,7 @@ post {
             emailext (
                 subject: "Build Successful: ${currentBuild.fullDisplayName}",
                 body: "The build ${currentBuild.fullDisplayName} has completed successfully.",
-                to: 'khalil.chargui@esprit.tn' // Replace with the recipient's email address
+                to: 'nawress.rafrafi@esprit.tn' // Replace with the recipient's email address
             )
         }
         failure {
