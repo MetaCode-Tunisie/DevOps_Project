@@ -23,7 +23,7 @@ pipeline{
         }
         stage('Run Tests') {
             steps {
-                    echo "test ay9ouna"
+                    sh 'mvn test'
             }
         }
        stage('Generate JaCoCo Coverage Report') {
