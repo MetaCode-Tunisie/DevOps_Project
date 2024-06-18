@@ -1,5 +1,11 @@
-FROM openjdk:11
-ARG NEXUS_URL=http://192.168.33.10:8081/repository/maven-releases/tn/esprit/DevOps_Project/2.2/DevOps_Project-2.2.jar
-RUN wget -O /DevOps_Project-2.2.jar $NEXUS_URL
-CMD ["java", "-jar", "/DevOps_Project-2.2.jar"]
-EXPOSE 8082
+FROM openjdk:17
+
+ARG NEXUS_URL=http://172.17.20.244:8081/repository/maven-releases/com/pgsintl/SupplyChainTracking/2.2/SupplyChainTracking-2.2.jar
+
+# Install curl and download the JAR file
+RUN apt-get update && apt-get install -y curl \
+    && curl -o /SupplyChainTracking-2.2.jar $NEXUS_URL
+
+CMD ["java", "-jar", "/SupplyChainTracking-2.2.jar"]
+
+EXPOSE 8085
